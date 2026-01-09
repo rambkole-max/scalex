@@ -1,678 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScaleX Co - Premium Creative Studio</title>
-
-    <!-- Google Fonts Inter is open source and free to use commercially. -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome free icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    
     <style>
-        /* --- BASIC SETUP --- */
-        * {
-            box-sizing: border-box;
+        /* --- Root & Reset --- */
+        :root {
+            --primary: #4285F4;
+            --bg-dark: #0a0b0d;
+            --bg-card: #16171a;
+            --text-main: #E8EAED;
+            --text-dim: #9AA0A6;
+            --accent-gradient: linear-gradient(135deg, #4285F4 0%, #9b51e0 100%);
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        body {
-            background-color: #202124;
-            display: grid;
-            gap: 30px;
-            grid-template-columns: 1fr;
-            margin: 0;
-            min-height: 100vh;
-            padding: 40px 0;
-            place-items: center;
-            font-family: 'Inter', sans-serif;
-            color: #E8EAED;
-        }
-
-        .logo img {
-            height: 212px;
-            /* adjust as needed */
-            width: auto;
-            display: block;
-        }
-
-        .slide-container {
-            background-color: #303134;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            justify-content: center;
-            overflow: hidden;
-            padding: 60px;
-            width: 1280px;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .slide-container:hover {
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
-        }
-
-        .slide-container h1,
-        h2,
-        h3,
-        h4,
-        th {
-            color: #F8F9FA;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .accent {
-            color: #4285F4;
-        }
-
-        .slide-container p,
-        li,
-        .subtitle,
-        td,
-        cite {
-            color: #BDC1C6;
-            font-weight: 400;
-        }
-
-        .slide-container h1 {
-            font-size: 88px;
-            line-height: 1.1;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .slide-container .slide-title {
-            font-size: 50px;
-            margin-bottom: 40px;
-            border-left: 6px solid #4285F4;
-            padding-left: 25px;
-            font-weight: 600;
-        }
-
-        .slide-container h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: #4285F4;
-            font-weight: 600;
-        }
-
-        .slide-container h4 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .slide-container p,
-        .slide-container li {
-            font-size: 18px;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-dark); 
+            color: var(--text-main); 
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- LAYOUTS --- */
-        .content-area {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: center;
-            width: 100%;
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: flex-start;
-            width: 100%;
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .icon-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #202124;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-            height: 400px;
-            width: 100%;
+        .stagger-container .card, 
+        .stagger-container .sector-item,
+        .stagger-container .t-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .stagger-container.show .card,
+        .stagger-container.show .sector-item,
+        .stagger-container.show .t-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Sections --- */
+        section { 
+            min-height: 100vh; 
+            padding: 100px 10%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            position: relative;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            background: radial-gradient(circle at top right, rgba(66, 133, 244, 0.2), transparent),
+                        radial-gradient(circle at bottom left, rgba(155, 81, 224, 0.15), transparent);
             text-align: center;
         }
-
-        .icon-placeholder i {
-            font-size: 120px;
-            color: #4285F4;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .icon-placeholder i:hover {
-            transform: scale(1.05);
-        }
-
-        .icon-placeholder p {
-            font-size: 20px;
-            color: #9AA0A6;
-        }
-
-        .bullet-list ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .bullet-list li {
-            background: #3C4043;
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin: 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .bullet-list i {
-            color: #4285F4;
-            font-size: 24px;
-            margin-top: 3px;
-            flex-shrink: 0;
-        }
-
-        .table-layout {
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid #4D4D4D;
-        }
-
-        th {
-            background-color: #3C4043;
-            color: #F8F9FA;
-            font-weight: 600;
-        }
-
-        td {
-            background-color: #303134;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-        .hero-gradient {
-  background: linear-gradient(
-    180deg,
-    rgba(121, 137, 185, 0.95) 0%,
-    rgba(77, 80, 87, 0.8) 50%,
-    rgba(0, 0, 0, 0.95) 100%
-  );
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-        /* --- FULL BACKGROUND IMAGE --- */
-        .full-bg-image {
-            background-size: cover;
-            background-position: center;
+        .hero-content { animation: float 6s ease-in-out infinite; }
+        .hero h2 { font-size: clamp(4rem, 12vw, 8rem); font-weight: 800; letter-spacing: -4px; margin-bottom: 0.5rem; line-height: 0.9; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--text-main); font-weight: 400; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 1.5rem; display: block; opacity: 0.8; }
+        
+        /* --- Titles --- */
+        .slide-title { 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            margin-bottom: 3.5rem; 
             position: relative;
-            width: 1280px;
+            padding-left: 25px;
+            letter-spacing: -1px;
         }
-
-        .content-overlay {
-            background: linear-gradient(180deg, rgba(60, 60, 60, 0.95) 0%, rgba(98, 100, 106, 0.8) 50%, rgba(0, 0, 0, 0.95) 100%);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px;
-            text-align: center;
-        }
-
-        .full-bg-image h1 {
-            font-size: 88px;
-            text-transform: uppercase;
-        }
-
-        .full-bg-image h2 {
-            font-weight: 400;
-            color: #4285F4;
-            margin-bottom: 20px;
-            margin-left: 116px;
-            margin-top: -64px;
-        }
-
-        .full-bg-image .subtitle {
-            font-size: 24px;
-            color: #9AA0A6;
-            margin-bottom: 20px;
-        }
-
-        .full-bg-image hr {
-            width: 50%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent 0%, #4285F4 50%, transparent 100%);
-            border-radius: 2px;
-            margin: 25px auto;
-        }
-
-        .full-bg-image p {
-            font-size: 26px;
-            color: #ffffff;
-            font-weight: 500;
-        }
-
-        /* --- TIMELINE --- */
-        .timeline-layout {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            margin: 50px auto 0;
-            width: 80%;
-        }
-
-        .timeline-layout::before {
+        .slide-title::before {
             content: '';
             position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: #5F6368;
-            transform: translateX(-50%);
+            left: 0; top: 0; bottom: 0;
+            width: 8px;
+            background: var(--accent-gradient);
+            border-radius: 4px;
         }
 
-        .timeline-item {
-            display: flex;
+        /* --- Grid Layouts --- */
+        .grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            margin-bottom: 30px;
-            align-items: center;
-            width: 50%;
+        }
+        .card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(66, 133, 244, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .card i { font-size: 2.8rem; margin-bottom: 2rem; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+
+        /* --- Pricing Table --- */
+        .price { font-size: 1.8rem; font-weight: 800; margin-top: 2rem; color: var(--primary); }
+        .package-card ul { list-style: none; margin-top: 1.5rem; }
+        .package-card li { margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-dim); display: flex; align-items: flex-start; gap: 10px; }
+        /* Fix for smaller icons in lists */
+        .package-card li i { font-size: 1rem !important; margin-bottom: 0 !important; -webkit-text-fill-color: var(--primary) !important; background: none !important; }
+
+        .badge {
+            background: var(--accent-gradient);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
 
-        .timeline-item:nth-child(odd) {
-            margin-right: 50%;
-            justify-content: flex-end;
+        /* --- Workflow --- */
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; width: 100%; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, var(--primary), transparent);
         }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-            margin-left: 50%;
-            justify-content: flex-start;
+        .t-item { position: relative; padding-left: 70px; margin-bottom: 5rem; }
+        .t-dot { 
+            position: absolute; left: 0; top: 0; 
+            width: 44px; height: 44px; background: var(--bg-dark); 
+            border: 3px solid var(--primary); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; z-index: 2; box-shadow: 0 0 15px rgba(66,133,244,0.3);
         }
+        .t-item small { color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
 
-        .timeline-dot {
-            width: 35px;
-            height: 35px;
-            background: #4285F4;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            color: #F8F9FA;
-            font-weight: 700;
-            font-size: 18px;
+        /* --- Sectors --- */
+        .sectors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.2rem; }
+        .sector-item { 
+            background: var(--bg-card); padding: 2.5rem 1rem; border-radius: 20px; text-align: center; 
+            transition: 0.4s; border: 1px solid transparent;
+        }
+        .sector-item:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(66, 133, 244, 0.05); }
+        .sector-item i { display: block; font-size: 2.2rem; margin-bottom: 1rem; color: var(--primary); }
+
+        /* --- Contact List Alignment Fix --- */
+        .contact-list { list-style: none; margin-top: 1.5rem; }
+        .contact-list li { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 1.2rem; 
+            font-size: 1rem; 
+            color: var(--text-main);
+        }
+        .contact-list li i { 
+            font-size: 1.2rem !important; 
+            width: 35px; 
+            margin-bottom: 0 !important; 
+            -webkit-text-fill-color: var(--primary) !important; 
+            background: none !important;
             flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-right: 25px;
-            text-align: right;
-            flex: 1;
-        }
+        .contact-grid { grid-template-columns: 1.5fr 1fr; }
 
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 25px;
-            text-align: left;
-            flex: 1;
-        }
-
-        .timeline-content h3 {
-            font-size: 20px;
-            color: #E8EAED;
-        }
-
-        .timeline-content p {
-            font-size: 15px;
-            color: #BDC1C6;
-        }
-
-        /* --- PRINT STYLES --- */
-        @media print {
-            body {
-                background-color: #202124 !important;
-                color: #E8EAED !important;
-                padding: 0 !important;
-                display: block !important;
-            }
-
-            .slide-container {
-                background-color: #303134 !important;
-                box-shadow: none !important;
-                border: 1px solid #4D4D4D;
-                page-break-inside: avoid;
-                height: auto !important;
-                width: 90% !important;
-                margin: 20px auto !important;
-                padding: 20px !important;
-                break-after: always;
-            }
+        @media (max-width: 900px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            section { padding: 80px 7%; }
+            .hero h2 { font-size: 4.5rem; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Slide 1: Title -->
-    <div class="slide-container full-bg-image" id="slide1"
-        style="background-image: url('https://source.unsplash.com/random/1280x720/?material-design,abstract-gradient');">
-        <div class="content-overlay hero-gradient ">
-            <div class="logo">
-                <img src="logo.png" alt="ScaleX Co Logo">
-            </div>
-            <h2>Premium Creative Studio</h2>
-            <p class="subtitle">Branding • Content Creation • Social Media Design</p>
-            <hr>
-            <p>Designing scalable visual systems for modern brands.</p>
-        </div>
+<!-- Slide 1: Hero -->
+<section class="hero">
+  <div class="hero-content reveal">
+    <span class="subtitle">Premium Creative Studio</span>
+    <h2>ScaleX Co</h2>
+    <p style="font-size: 1.3rem; color: var(--text-dim); max-width: 700px; margin: 2rem auto; font-weight: 300;">
+        We build <strong style="color: white">Scalable Visual Systems</strong> that turn brands into market leaders through high-performance content and strategic design.
+    </p>
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="#contact" style="display: inline-block; padding: 20px 45px; background: var(--accent-gradient); color: white; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 1rem; transition: 0.3s; box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);">Scale Your Brand</a>
+        <a href="#services" style="display: inline-block; padding: 20px 45px; background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: 0.3s;">Our Expertise</a>
     </div>
+  </div>
+</section>
 
-    <!-- Slide 2: About -->
-    <div class="slide-container" id="slide2">
-        <h2 class="slide-title">About ScaleX Co</h2>
-        <div class="content-area two-column">
-            <div>
-                <h3>Who We Are</h3>
-                <p>ScaleX Co is a premium creative studio helping businesses build a powerful visual identity through
-                    branding, content systems, and high-quality creative output.</p>
-                <br>
-                <h3>Our Mission</h3>
-                <p>We create design systems that scale — blending creativity, clarity, and strategy to deliver designs
-                    that look premium and perform consistently.</p>
-            </div>
-            <div class="icon-placeholder">
-                <i class="fa-solid fa-gem"></i>
-                <p>The Premium Creative Partner</p>
-            </div>
-        </div>
+<!-- Slide 2: Strategic Services -->
+<section id="services">
+  <h2 class="slide-title reveal">Strategic Capabilities</h2>
+  <div class="grid stagger-container">
+    <div class="card">
+      <i class="fa-solid fa-gem"></i>
+      <h3>Premium Branding</h3>
+      <p>Beyond logos. We build identity systems (Typography, Color, Tone) that command higher price points for your products.</p>
     </div>
-
-    <!-- Slide 3: Services -->
-    <div class="slide-container" id="slide3">
-        <h2 class="slide-title">Our Services</h2>
-        <div class="content-area">
-            <div class="bullet-list">
-                <ul>
-                    <li><i class="fa-solid fa-pen-nib"></i> <strong>Brand Identity</strong><br>Logo systems, typography
-                        & color frameworks, brand guidelines.</li>
-                    <li><i class="fa-solid fa-camera-retro"></i> <strong>Content Systems</strong><br>Carousel & post
-                        templates, monthly visual themes.</li>
-                    <li><i class="fa-solid fa-photo-film"></i> <strong>Photography</strong><br>Content creation for
-                        social media & website.</li>
-                    <li><i class="fa-solid fa-video"></i> <strong>Videography</strong><br>Reels, short-form videos,
-                        brand stories.</li>
-                    <li><i class="fa-solid fa-share-nodes"></i> <strong>Social Media Design</strong><br>Feed layouts,
-                        story templates, and content-ready visuals.</li>
-                </ul>
-            </div>
-        </div>
+    <div class="card">
+      <i class="fa-solid fa-chart-line"></i>
+      <h3>Performance Content</h3>
+      <p>Reels and short-form video engineered for the algorithm to maximize organic reach and lead conversion.</p>
     </div>
-
-    <!-- Slide 4: Premium India Market Pricing -->
-    <div class="slide-container" id="slide4">
-        <h2 class="slide-title">Investment & Packages</h2>
-        <div class="content-area">
-
-            <!-- Logo Design Pricing -->
-            <div class="table-layout" style="margin-bottom:40px;">
-                <h3 style="padding:16px 20px; background:#3C4043; color:#F8F9FA;">⭐ Logo Design</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="25%">Package</th>
-                            <th>Details</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Starter Logo</td>
-                            <td>
-                                1 Logo Concept<br>
-                                HD PNG & JPG<br>
-                                Transparent Version<br>
-                                1 Revision
-                            </td>
-                            <td>₹2,999</td>
-                        </tr>
-                        <tr>
-                            <td>Standard Logo</td>
-                            <td>
-                                2 Logo Concepts<br>
-                                HD + Transparent versions<br>
-                                Black & White Version<br>
-                                Favicon Icon<br>
-                                2 Revisions
-                            </td>
-                            <td>₹5,499</td>
-                        </tr>
-                        <tr>
-                            <td>Premium Logo</td>
-                            <td>
-                                3 Concepts<br>
-                                HD, Transparent, BW versions<br>
-                                Multiple Layouts<br>
-                                3–4 Revisions<br>
-                                Mini Usage Guide (Optional +₹1,000)
-                            </td>
-                            <td>₹8,999</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Social Media Content Creation Pricing -->
-            <div class="table-layout" style="margin-bottom:40px;">
-                <h3 style="padding:16px 20px; background:#3C4043; color:#F8F9FA;">⭐ Social Media Content Creation
-                    (Premium)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Package / Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Static Posts -->
-                        <tr>
-                            <td rowspan="3">Static Posts</td>
-                            <td>8 Posts</td>
-                            <td>₹4,499</td>
-                        </tr>
-                        <tr>
-                            <td>15 Posts</td>
-                            <td>₹7,999</td>
-                        </tr>
-                        <tr>
-                            <td>25 Posts</td>
-                            <td>₹12,499</td>
-                        </tr>
-
-                        <!-- Reels Editing -->
-                        <tr>
-                            <td rowspan="3">Reels Editing</td>
-                            <td>1 Reel</td>
-                            <td>₹1,499</td>
-                        </tr>
-                        <tr>
-                            <td>4 Reels</td>
-                            <td>₹5,199</td>
-                        </tr>
-                        <tr>
-                            <td>8 Reels</td>
-                            <td>₹9,499</td>
-                        </tr>
-
-                        <!-- Photography / Videography Add-On -->
-                        <tr>
-                            <td rowspan="3">Photography / Videography Add-On</td>
-                            <td>2-Hour Shoot</td>
-                            <td>₹5,999</td>
-                        </tr>
-                        <tr>
-                            <td>Half-Day Shoot</td>
-                            <td>₹12,999</td>
-                        </tr>
-                        <tr>
-                            <td>Full-Day Shoot</td>
-                            <td>₹19,999</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Combo Packages -->
-            <div class="table-layout">
-                <h3 style="padding:16px 20px; background:#3C4043; color:#F8F9FA;">⭐ Combo Packages (Best Sellers)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Package</th>
-                            <th>Details</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Starter Combo</td>
-                            <td>
-                                10 Posts<br>
-                                2 Reels<br>
-                                Basic captions
-                            </td>
-                            <td>₹9,999</td>
-                        </tr>
-                        <tr>
-                            <td>Standard Combo</td>
-                            <td>
-                                15 Posts<br>
-                                4 Reels<br>
-                                Captions + Hashtags<br>
-                                Scheduling Support
-                            </td>
-                            <td>₹14,999</td>
-                        </tr>
-                        <tr>
-                            <td>Premium Combo</td>
-                            <td>
-                                25 Posts<br>
-                                6 Reels<br>
-                                Strategic captions<br>
-                                Monthly content plan<br>
-                                Performance review call
-                            </td>
-                            <td>₹22,999</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p style="margin-top:20px; font-size:16px; color:#9AA0A6;">
-                *All pricing is for premium quality content creation. Packages can be customized based on client
-                requirements, location, and complexity.
-            </p>
-        </div>
+    <div class="card">
+      <i class="fa-solid fa-rocket"></i>
+      <h3>Growth Retainers</h3>
+      <p>Strategic partnership where we act as your in-house creative department, ensuring brand consistency every month.</p>
     </div>
+  </div>
+</section>
 
-    <!-- Slide 5: Process -->
-    <div class="slide-container" id="slide5">
-        <h2 class="slide-title">Our Process</h2>
-        <div class="content-area timeline-layout">
-            <div class="timeline-item">
-                <div class="timeline-dot">1</div>
-                <div class="timeline-content">
-                    <h3>Discovery</h3>
-                    <p>Understand brand goals & audience</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot">2</div>
-                <div class="timeline-content">
-                    <h3>Strategy</h3>
-                    <p>Define visual & content direction</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot">3</div>
-                <div class="timeline-content">
-                    <h3>Execution</h3>
-                    <p>Design, content production & delivery</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot">4</div>
-                <div class="timeline-content">
-                    <h3>Refinement</h3>
-                    <p>Feedback, polish & adjustments</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot">5</div>
-                <div class="timeline-content">
-                    <h3>Scale</h3>
-                    <p>Systems that grow with the brand</p>
-                </div>
-            </div>
-        </div>
+<!-- Slide 3: Growth Investment -->
+<section>
+  <h2 class="slide-title reveal">Investment Options</h2>
+  <div class="grid stagger-container">
+    <div class="card package-card">
+      <h3>The Essential</h3>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">Perfect for maintaining presence.</p>
+      <ul>
+        <li><i class="fa-solid fa-check"></i> 10 High-Quality Static Posts</li>
+        <li><i class="fa-solid fa-check"></i> Caption & Hashtag Strategy</li>
+        <li><i class="fa-solid fa-check"></i> Monthly Content Calendar</li>
+        <li><i class="fa-solid fa-check"></i> Basic Account Handling</li>
+      </ul>
+      <p class="price">₹7,999<small style="font-size: 0.8rem; opacity: 0.6">/month</small></p>
     </div>
+    <div class="card package-card" style="border-color: var(--primary); background: rgba(66,133,244,0.03);">
+      <div class="badge">Growth Partner</div>
+      <h3>Scalable Growth</h3>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">Comprehensive brand scaling.</p>
+      <ul>
+        <li><i class="fa-solid fa-check"></i> 25-30 Strategic Posts</li>
+        <li><i class="fa-solid fa-check"></i> 8 Professional Reels / mo</li>
+        <li><i class="fa-solid fa-check"></i> <strong>Full Professional Shoot</strong></li>
+        <li><i class="fa-solid fa-check"></i> Paid Ads & Lead Gen Strategy</li>
+        <li><i class="fa-solid fa-check"></i> Dedicated Account Manager</li>
+      </ul>
+      <p class="price">₹22k - ₹35k<small style="font-size: 0.8rem; opacity: 0.6">/month</small></p>
+    </div>
+    <div class="card package-card">
+      <h3>Production VIP</h3>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">One-day high-end capture.</p>
+      <ul>
+        <li><i class="fa-solid fa-check"></i> Professional Crew (8 hours)</li>
+        <li><i class="fa-solid fa-check"></i> 4K Cinematography</li>
+        <li><i class="fa-solid fa-check"></i> Product / Space Photography</li>
+        <li><i class="fa-solid fa-check"></i> Scripted Testimonials</li>
+      </ul>
+      <p class="price">₹19,999<small style="font-size: 0.8rem; opacity: 0.6">/full day</small></p>
+    </div>
+  </div>
+</section>
 
-    <!-- Slide 6: Contact -->
-    <div class="slide-container" id="slide6">
-        <h2 class="slide-title">Get in Touch</h2>
-        <div class="content-area two-column">
-            <div class="icon-placeholder">
-                <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <div>
-                <h3>Suyash Waghmare | Ram Kole </h3>
-                <p class="subtitle">Founders, ScaleX Co</p>
-                <p>A passionate creative studio focused on building scalable visual systems for premium brands.</p>
-                <hr style="border:0;height:1px;background:#4D4D4D;margin:25px 0;">
-                <p><i class="fa-solid fa-envelope accent" style="width:30px;"></i> support@scalexco.com</p>
-                <p><i class="fa-solid fa-phone accent" style="width:30px;"></i> +91 8484802019</p>
-                <p><i class="fa-solid fa-location-dot accent" style="width:30px;"></i>India (Remote Operations)</p>
-                <p><i style="width:30px;"></i>Shop No.02, 1st Floor, Mozam Tower, Chatrapati Shivaji Maharaj Chowk, opp.
-                    Sudarshan Hotel, Mitra Nagar, Sawe Wadi, Latur, Maharashtra 413531</p>
-            </div>
-        </div>
+<!-- Slide 4: Detailed Workflow -->
+<section>
+  <h2 class="slide-title reveal">The ScaleX Workflow</h2>
+  <div class="timeline stagger-container">
+    <div class="t-item">
+      <div class="t-dot">1</div>
+      <small>Week 1</small>
+      <h3>Strategic Discovery</h3>
+      <p>We analyze your business model, target high-net-worth audience, and current market gaps. We don't just design; we plan for profit.</p>
     </div>
+    <div class="t-item">
+      <div class="t-dot">2</div>
+      <small>Week 1-2</small>
+      <h3>Identity Architecture</h3>
+      <p>Developing a visual mood board and content pillars. We establish the "vibe" that will attract your ideal customers.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-dot">3</div>
+      <small>Ongoing</small>
+      <h3>High-Fidelity Production</h3>
+      <p>The "Capture & Create" phase. Professional shooting and editing with a focus on high retention rates and engagement metrics.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-dot">4</div>
+      <small>Monthly</small>
+      <h3>Review & Optimization</h3>
+      <p>Data-driven feedback. We look at which visuals performed best and double down on what’s bringing results to ensure scaling.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-dot">5</div>
+      <small>Continuous</small>
+      <h3>Scaling & Expansion</h3>
+      <p>We replicate successful patterns across new channels and demographics to ensure your brand's growth never hits a plateau.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: Sectors -->
+<section>
+  <h2 class="slide-title reveal">Industry Verticals</h2>
+  <div class="sectors-grid stagger-container">
+    <div class="sector-item"><i class="fa-solid fa-utensils"></i><br>HORECA</div>
+    <div class="sector-item"><i class="fa-solid fa-building"></i><br>Real Estate</div>
+    <div class="sector-item"><i class="fa-solid fa-shirt"></i><br>D2C Fashion</div>
+    <div class="sector-item"><i class="fa-solid fa-graduation-cap"></i><br>Ed-Tech</div>
+    <div class="sector-item"><i class="fa-solid fa-dumbbell"></i><br>Fitness & Wellness</div>
+    <div class="sector-item"><i class="fa-solid fa-car"></i><br>Automotive</div>
+    <div class="sector-item"><i class="fa-solid fa-briefcase-medical"></i><br>Healthcare</div>
+    <div class="sector-item"><i class="fa-solid fa-landmark"></i><br>Institutional</div>
+  </div>
+</section>
+
+<!-- Slide 6: Contact & Team -->
+<section id="contact">
+  <h2 class="slide-title reveal">Partner With Us</h2>
+  <div class="grid contact-grid reveal">
+    <div class="card">
+      <h3>ScaleX Co Headquarters</h3>
+      <ul class="contact-list">
+          <li><i class="fa-solid fa-user-tie"></i> <span>Suyash Waghmare | Founder</span></li>
+          <li><i class="fa-solid fa-user-shield"></i> <span>Ram Kole | Co-Founder</span></li>
+          <li><i class="fa-solid fa-phone"></i> <span>+91 8484802019</span></li>
+          <li><i class="fa-solid fa-envelope"></i> <span>support@scalexco.com</span></li>
+          <li><i class="fa-solid fa-location-dot"></i> <span>Latur, Maharashtra | Serving Globally</span></li>
+      </ul>
+    </div>
+    <div class="card" style="background: var(--accent-gradient); color: white;">
+      <h3>Ready to Scale?</h3>
+      <p style="margin-bottom: 2rem; opacity: 0.9;">Stop being just another brand. Start being the market leader. Schedule a consultation with our founders today.</p>
+      <a href="mailto:support@scalexco.com" style="display: block; text-align: center; padding: 15px; background: white; color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 800;">Email Consultation</a>
+    </div>
+  </div>
+  <footer style="margin-top: 4rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; letter-spacing: 1px;">
+      &copy; 2026 SCALEX CO. ALL RIGHTS RESERVED. DESIGNED FOR PERFORMANCE.
+  </footer>
+</section>
+
+<script>
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                
+                if (entry.target.classList.contains('stagger-container')) {
+                    const children = entry.target.children;
+                    Array.from(children).forEach((child, index) => {
+                        setTimeout(() => {
+                            child.style.opacity = '1';
+                            child.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .stagger-container').forEach(el => revealObserver.observe(el));
+</script>
 
 </body>
-
 </html>
