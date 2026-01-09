@@ -186,9 +186,10 @@
         .contact-grid { grid-template-columns: 1.5fr 1fr; }
 
         /* --- Team Section --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .team-card { text-align: center; background: var(--bg-card); padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.04); }
-        .team-img { width: 120px; height: 120px; background: var(--accent-gradient); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .team-card { text-align: center; background: var(--bg-card); padding: 2.5rem 1.5rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.04); transition: 0.3s; }
+        .team-card:hover { border-color: var(--primary); transform: scale(1.02); }
+        .team-img { width: 100px; height: 100px; background: var(--accent-gradient); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; box-shadow: 0 8px 20px rgba(66, 133, 244, 0.2); }
 
         @media (max-width: 900px) {
             .contact-grid { grid-template-columns: 1fr; }
@@ -311,15 +312,27 @@
   <div class="team-grid stagger-container">
     <div class="team-card">
         <div class="team-img"><i class="fa-solid fa-crown"></i></div>
-        <h3>Suyash Waghmare</h3>
-        <p style="color: var(--primary); font-weight: 800; margin-bottom: 1rem;">Founder & Strategy Lead</p>
-        <p style="font-size: 0.9rem; color: var(--text-dim);">Expert in brand architecture and business scaling systems.</p>
+        <h3>Suyash</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 0.5rem;">Founder & Strategy Lead</p>
+        <p style="font-size: 0.85rem; color: var(--text-dim);">Business scaling & architecture.</p>
     </div>
     <div class="team-card">
         <div class="team-img"><i class="fa-solid fa-bolt"></i></div>
-        <h3>Ram Kole</h3>
-        <p style="color: var(--primary); font-weight: 800; margin-bottom: 1rem;">Co-Founder & Production Head</p>
-        <p style="font-size: 0.9rem; color: var(--text-dim);">Leading high-fidelity visual production and cinematography.</p>
+        <h3>Ram</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 0.5rem;">Co-Founder</p>
+        <p style="font-size: 0.85rem; color: var(--text-dim);">Creative direction & brand systems.</p>
+    </div>
+    <div class="team-card">
+        <div class="team-img"><i class="fa-solid fa-video"></i></div>
+        <h3>Bipin</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 0.5rem;">Production Head</p>
+        <p style="font-size: 0.85rem; color: var(--text-dim);">Cinematography & shoot execution.</p>
+    </div>
+    <div class="team-card">
+        <div class="team-img"><i class="fa-solid fa-scissors"></i></div>
+        <h3>Shivam</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 0.5rem;">Editing Lead</p>
+        <p style="font-size: 0.85rem; color: var(--text-dim);">High-fidelity post-production.</p>
     </div>
   </div>
 </section>
