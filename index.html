@@ -124,7 +124,6 @@
         .price { font-size: 1.8rem; font-weight: 800; margin-top: 2rem; color: var(--primary); }
         .package-card ul { list-style: none; margin-top: 1.5rem; }
         .package-card li { margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-dim); display: flex; align-items: flex-start; gap: 10px; }
-        /* Fix for smaller icons in lists */
         .package-card li i { font-size: 1rem !important; margin-bottom: 0 !important; -webkit-text-fill-color: var(--primary) !important; background: none !important; }
 
         .badge {
@@ -166,7 +165,7 @@
         .sector-item:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(66, 133, 244, 0.05); }
         .sector-item i { display: block; font-size: 2.2rem; margin-bottom: 1rem; color: var(--primary); }
 
-        /* --- Contact List Alignment Fix --- */
+        /* --- Contact List Alignment --- */
         .contact-list { list-style: none; margin-top: 1.5rem; }
         .contact-list li { 
             display: flex; 
@@ -185,6 +184,11 @@
         }
 
         .contact-grid { grid-template-columns: 1.5fr 1fr; }
+
+        /* --- Team Section --- */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .team-card { text-align: center; background: var(--bg-card); padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.04); }
+        .team-img { width: 120px; height: 120px; background: var(--accent-gradient); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; }
 
         @media (max-width: 900px) {
             .contact-grid { grid-template-columns: 1fr; }
@@ -225,16 +229,18 @@
       <p>Reels and short-form video engineered for the algorithm to maximize organic reach and lead conversion.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-rocket"></i>
-      <h3>Growth Retainers</h3>
-      <p>Strategic partnership where we act as your in-house creative department, ensuring brand consistency every month.</p>
+      <i class="fa-solid fa-bullseye"></i>
+      <h3>Paid Promotions</h3>
+      <p>Precision-targeted social media advertising. We know exactly which audience to target to maximize ROI and account reach.</p>
     </div>
   </div>
 </section>
 
 <!-- Slide 3: Growth Investment -->
 <section>
-  <h2 class="slide-title reveal">Investment Options</h2>
+  <h2 class="slide-title reveal">Monthly Management (Best Sellers)</h2>
+  <p style="color: var(--text-dim); margin-top: -2.5rem; margin-bottom: 3rem; max-width: 800px;">Monthly handling packages focused on consistent brand growth. <em>Note: Client provides raw footage/photos. Travel/Logistics for out-station shoots extra.</em></p>
+  
   <div class="grid stagger-container">
     <div class="card package-card">
       <h3>The Essential</h3>
@@ -243,7 +249,7 @@
         <li><i class="fa-solid fa-check"></i> 10 High-Quality Static Posts</li>
         <li><i class="fa-solid fa-check"></i> Caption & Hashtag Strategy</li>
         <li><i class="fa-solid fa-check"></i> Monthly Content Calendar</li>
-        <li><i class="fa-solid fa-check"></i> Basic Account Handling</li>
+        <li><i class="fa-solid fa-check"></i> Raw content provided by client</li>
       </ul>
       <p class="price">₹7,999<small style="font-size: 0.8rem; opacity: 0.6">/month</small></p>
     </div>
@@ -254,27 +260,71 @@
       <ul>
         <li><i class="fa-solid fa-check"></i> 25-30 Strategic Posts</li>
         <li><i class="fa-solid fa-check"></i> 8 Professional Reels / mo</li>
-        <li><i class="fa-solid fa-check"></i> <strong>Full Professional Shoot</strong></li>
-        <li><i class="fa-solid fa-check"></i> Paid Ads & Lead Gen Strategy</li>
-        <li><i class="fa-solid fa-check"></i> Dedicated Account Manager</li>
+        <li><i class="fa-solid fa-check"></i> Full Account Engagement Management</li>
+        <li><i class="fa-solid fa-check"></i> Paid Ads Strategy & Monitoring</li>
+        <li><i class="fa-solid fa-check"></i> Performance Tracking Reports</li>
       </ul>
       <p class="price">₹22k - ₹35k<small style="font-size: 0.8rem; opacity: 0.6">/month</small></p>
     </div>
     <div class="card package-card">
-      <h3>Production VIP</h3>
-      <p style="color: var(--text-dim); font-size: 0.9rem;">One-day high-end capture.</p>
+      <h3>Editing Only</h3>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">Pure post-production support.</p>
       <ul>
-        <li><i class="fa-solid fa-check"></i> Professional Crew (8 hours)</li>
-        <li><i class="fa-solid fa-check"></i> 4K Cinematography</li>
-        <li><i class="fa-solid fa-check"></i> Product / Space Photography</li>
-        <li><i class="fa-solid fa-check"></i> Scripted Testimonials</li>
+        <li><i class="fa-solid fa-check"></i> High-Retention Reel Editing</li>
+        <li><i class="fa-solid fa-check"></i> Trending Audio Selection</li>
+        <li><i class="fa-solid fa-check"></i> Motion Graphics & Captions</li>
+        <li><i class="fa-solid fa-check"></i> Charged per minute of final footage</li>
       </ul>
-      <p class="price">₹19,999<small style="font-size: 0.8rem; opacity: 0.6">/full day</small></p>
+      <p class="price">₹1,500<small style="font-size: 0.8rem; opacity: 0.6">/per min</small></p>
     </div>
   </div>
 </section>
 
-<!-- Slide 4: Detailed Workflow -->
+<!-- Slide 4: Add-on Services (Production) -->
+<section>
+  <h2 class="slide-title reveal">Add-on Production Services</h2>
+  <div class="grid stagger-container">
+    <div class="card">
+      <i class="fa-solid fa-camera"></i>
+      <h3>Professional Shoot</h3>
+      <p>High-end photography and videography using professional cinema equipment. Includes lighting, sound, and direction.</p>
+      <p style="color: var(--primary); font-weight: 800; margin-top: 1rem;">Starting ₹19,999</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-clapperboard"></i>
+      <h3>Script & Storyboard</h3>
+      <p>Complete content creation from scratch. We write the scripts for your testimonials, company highlights, and ads.</p>
+      <p style="color: var(--primary); font-weight: 800; margin-top: 1rem;">Custom Quote</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <h3>Mobile-First Capture</h3>
+      <p>For clients who prefer a raw "iPhone vibe." We provide direction on how to capture usable footage for high-impact reels.</p>
+      <p style="color: var(--primary); font-weight: 800; margin-top: 1rem;">Consultation Included</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: Team Section -->
+<section>
+  <h2 class="slide-title reveal">Meet The Strategic Team</h2>
+  <div class="team-grid stagger-container">
+    <div class="team-card">
+        <div class="team-img"><i class="fa-solid fa-crown"></i></div>
+        <h3>Suyash Waghmare</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 1rem;">Founder & Strategy Lead</p>
+        <p style="font-size: 0.9rem; color: var(--text-dim);">Expert in brand architecture and business scaling systems.</p>
+    </div>
+    <div class="team-card">
+        <div class="team-img"><i class="fa-solid fa-bolt"></i></div>
+        <h3>Ram Kole</h3>
+        <p style="color: var(--primary); font-weight: 800; margin-bottom: 1rem;">Co-Founder & Production Head</p>
+        <p style="font-size: 0.9rem; color: var(--text-dim);">Leading high-fidelity visual production and cinematography.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: Detailed Workflow -->
 <section>
   <h2 class="slide-title reveal">The ScaleX Workflow</h2>
   <div class="timeline stagger-container">
@@ -311,7 +361,7 @@
   </div>
 </section>
 
-<!-- Slide 5: Sectors -->
+<!-- Slide 7: Sectors -->
 <section>
   <h2 class="slide-title reveal">Industry Verticals</h2>
   <div class="sectors-grid stagger-container">
@@ -326,24 +376,27 @@
   </div>
 </section>
 
-<!-- Slide 6: Contact & Team -->
+<!-- Slide 8: Contact -->
 <section id="contact">
-  <h2 class="slide-title reveal">Partner With Us</h2>
+  <h2 class="slide-title reveal">ScaleX Co Headquarters</h2>
   <div class="grid contact-grid reveal">
     <div class="card">
-      <h3>ScaleX Co Headquarters</h3>
       <ul class="contact-list">
-          <li><i class="fa-solid fa-user-tie"></i> <span>Suyash Waghmare | Founder</span></li>
-          <li><i class="fa-solid fa-user-shield"></i> <span>Ram Kole | Co-Founder</span></li>
           <li><i class="fa-solid fa-phone"></i> <span>+91 8484802019</span></li>
           <li><i class="fa-solid fa-envelope"></i> <span>support@scalexco.com</span></li>
           <li><i class="fa-solid fa-location-dot"></i> <span>Latur, Maharashtra | Serving Globally</span></li>
       </ul>
+      <div style="margin-top: 2rem; padding: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
+          <small style="color: var(--text-dim);">* Out-station clients are requested to provide transport and accommodation for shoot days.</small>
+      </div>
     </div>
     <div class="card" style="background: var(--accent-gradient); color: white;">
       <h3>Ready to Scale?</h3>
-      <p style="margin-bottom: 2rem; opacity: 0.9;">Stop being just another brand. Start being the market leader. Schedule a consultation with our founders today.</p>
-      <a href="mailto:support@scalexco.com" style="display: block; text-align: center; padding: 15px; background: white; color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 800;">Email Consultation</a>
+      <p style="margin-bottom: 2rem; opacity: 0.9;">Stop being just another brand. Start being the market leader. Contact us for a strategic audit of your current social presence.</p>
+      <div style="padding: 15px; background: rgba(255,255,255,0.1); border-radius: 12px; text-align: center;">
+          <p style="font-weight: 800;">Contact Founder Directly</p>
+          <p>+91 8484802019</p>
+      </div>
     </div>
   </div>
   <footer style="margin-top: 4rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; letter-spacing: 1px;">
